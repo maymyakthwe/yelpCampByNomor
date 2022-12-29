@@ -1,0 +1,48 @@
+<%layout('layouts/boilerplate.ejs')%>
+
+    <div class="row">
+        <h1 class="text-center">Make a new campground</h1>
+        <div class="col-6 offset-3">
+            <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label><br>
+                    <input type="text" id="title" name="campground[title]" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location:</label><br>
+                    <input type="text" id="location" name="campground[location]" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price:</label><br>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">$</span>
+                        <input type="number" id="price" name="campground[price]" class="form-control" placeholder="0.00"
+                            aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+
+
+                <!-- 
+            <div class="mb-3">
+                <label for="image" class="form-label">Image:</label><br>
+                <input type="text" id="image" name="campground[image]" class="form-control" required>    
+            </div> -->
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label><br>
+                    <textarea name="campground[description]" id="description" cols="30" rows="5" class="form-control"
+                        required></textarea>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Images</label>
+                    <input name="image" class="form-control" type="file" id="image" multiple>
+                </div>
+
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>

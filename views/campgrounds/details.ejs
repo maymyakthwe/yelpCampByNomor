@@ -1,0 +1,95 @@
+<%layout( 'layouts/boilerplate.ejs' )%>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="card mb-3">
+
+        <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <% foundcamp.images.forEach((img,i)=>{ %>
+              <div class="carousel-item <%= i === 0? 'active' : '' %>" data-interval="10000">
+                <img src="<%=img.url%>" class="d-block w-100" alt="">
+              </div>
+              <% }) %>
+          </div>
+          <% if(foundcamp.images.length> 1) {%>
+            <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            <%=foundcamp.title%>
+          </h5>
+          <p class="card-text">
+            <%=foundcamp.description%>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Price : $<%=foundcamp.price%>
+          </li>
+          <li class="list-group-item">Location : <%=foundcamp.location%>
+          </li>
+          <li class="list-group-item">Submitted by : <%=foundcamp.author.username%>
+          </li>
+        </ul>
+        <div class="card-body">
+          <form action="/campgrounds/<%=foundcamp._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-danger mb-3 ">DETETE</button>
+          </form>
+          <a href="/campgrounds" class="card-link btn btn-outline-secondary btn-sm">Back to campgrounds</a>
+          <a href="/campgrounds/<%=foundcamp._id%>/edit" class="card-link btn btn-outline-secondary btn-sm">Edit
+            campground</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card mb-3">
+        <h2 class="card-title m-3">Leave a Review</h2>
+        <form action="/campgrounds/<%=foundcamp._id%>/reviews" method="POST" class="validated-form m-3" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="rating">Rating</label>
+            <input type="range" class="form-range" min="1" max="5" name="review[rating]" id="rating">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="body">Enter your experience</label>
+            <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+          </div>
+          <button class="btn btn-sm btn-primary ">Submit</button>
+        </form>
+      </div>
+
+
+      <div class="mb-3">
+        <% for (let r of foundcamp.reviews){%>
+          <div class="card mb-2">
+            <div class="card-body">
+              <h5 class="card-title">
+                Rating: <% for( i=0; i<r.rating;i++){ %>
+                  #
+                  <% } %>
+              </h5>
+              <p class="card-text">
+                <%=r.body%>
+              </p>
+            </div>
+            <form action="/campgrounds/<%=foundcamp._id%>/reviews/<%=r._id%>?_method=DELETE" method="POST">
+              <button class="btn-sm btn-danger mx-3 mb-3">
+                Delete
+              </button>
+            </form>
+          </div>
+          <%}%>
+      </div>
+    </div>
+  </div>
