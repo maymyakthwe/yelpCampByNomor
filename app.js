@@ -13,7 +13,7 @@ const ExpressError = require('./utils/ExpressError')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpCamp';
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelpCamp';
 
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -24,7 +24,7 @@ const reviewRoutes = require('./routes/reviewRoutes');
 
 const MongoDBStore = require('connect-mongo')(session);
 
-//'mongodb://localhost:27017/yelpCamp'
+//'mongodb://127.0.0.1:27017/yelpCamp'
 
 const mongoose = require('mongoose');
 mongoose.connect(dbUrl);
